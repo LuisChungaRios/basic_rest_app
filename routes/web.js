@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express.Router()
 const UserController = require('./../controllers/UserController')
+const CategoryController = require('./../controllers/CategoryController')
+const ProductController = require('./../controllers/ProductController')
 const auth = require('./auth')
 const {tokenIsValid} = require('../middlewares/Auth')
 app.use(auth)
@@ -8,5 +10,18 @@ app.get('/users', tokenIsValid, UserController.index)
 app.post('/users', tokenIsValid, UserController.store)
 app.put('/users/:id', tokenIsValid, UserController.update)
 app.delete('/users/:id', tokenIsValid, UserController.delete)
+
+app.get('/categories', tokenIsValid, CategoryController.index)
+app.get('/categories/:id', tokenIsValid, CategoryController.show)
+app.post('/categories', tokenIsValid, CategoryController.store)
+app.put('/categories/:id', tokenIsValid, CategoryController.update)
+app.delete('/categories/:id', tokenIsValid, CategoryController.delete)
+
+app.get('/products', tokenIsValid, ProductController.index)
+app.get('/products/search/:keyword', tokenIsValid, ProductController.search)
+app.get('/products/:id', tokenIsValid, ProductController.show)
+app.post('/products', tokenIsValid, ProductController.store)
+app.put('/products/:id', tokenIsValid, ProductController.update)
+app.delete('/products/:id', tokenIsValid, ProductController.delete)
 
 module.exports = app
